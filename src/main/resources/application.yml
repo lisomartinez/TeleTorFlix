@@ -1,0 +1,75 @@
+spring:
+  profiles:
+    active: dev
+---
+spring:
+  profiles: prod
+  main:
+    banner-mode: "off"
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:C:\Users\lisan\OneDrive\Documents\test.db
+    username: teletorflix
+    password: 5deCopas
+    initialization-mode: always
+  jpa:
+    hibernate.ddl-auto: validate
+    generate-ddl: false
+    show-sql: false
+    properties:
+      hibernate:
+      dialect: org.hibernate.dialect.H2Dialect
+
+logging:
+  file: logs/production_app.log
+  pattern:
+    file: "%d %-5level [%thread] %logger{0} : %msg%n"
+  level:
+    org.springframework.web: WARN
+    guru.springframework.controllers: WARN
+    org.hibernate: WARN
+#servers:
+---
+spring:
+  profiles: dev
+  main:
+    banner-mode: "off"
+  datasource:
+    driverClassName: org.h2.Driver
+    #      url: jdbc:h2:mem:db;INIT=RUNSCRIPT FROM '~/schema.sql'\;RUNSCRIPT FROM '~/data.sql'"
+    url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1;
+    username: sa
+    password:
+    initialization-mode: always
+  jpa:
+    hibernate.ddl-auto: validate
+    generate-ddl: false
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+        use_sql_comments: true
+logging:
+  file: logs/dev_app.log
+  pattern:
+    console: "%d{yyyy-MMM-dd HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{15}) - %msg %n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+    org.springframework.web: DEBUG
+    guru.springframework.controllers: DEBUG
+    org.hibernate:
+      SQL: DEBUG
+      type.descriptor.sql: trace
+
+security:
+  oauth2:
+    client:
+      client-id: acme
+      client-secret: acmesecret
+      scope: read,write
+      auto-approve-scopes: '.*'
+
+server:
+  address: 127.0.0.1
+  port: 8080
