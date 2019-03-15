@@ -3,6 +3,8 @@ package com.teletorflix.app.exceptions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+
 class TvMazeServerErrorExceptionTest {
     @Test
     @DisplayName("Create TvMazeServerErrorException without description returns instance with default message")
