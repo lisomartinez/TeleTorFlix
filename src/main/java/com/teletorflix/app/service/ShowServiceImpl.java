@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -37,18 +38,21 @@ public class ShowServiceImpl implements ShowService {
     }
 
     @Override
-    public Show getShowById(int id) {
-        if (id < 1) {
-            throw new ShowNotFoundException("Show id should be greater than or equal to 1");
-        }
+    public Show getShowById(int showId) {
+        assertThatShowIdIsValid(showId);
 
-        Optional<Show> show = showRepository.findById(id);
+        Optional<Show> show = showRepository.findById(showId);
 
         if (isShowUpToDate(show)) {
             return show.get();
         } else {
-            Show tvMazeShow = getTvMazeShow(id);
-            return showRepository.save(tvMazeShow);
+            return showRepository.save(showFromTVMaze(showId));
+        }
+    }
+
+    private void assertThatShowIdIsValid(int id) {
+        if (id < 1) {
+            throw new ShowNotFoundException("Show id should be greater than or equal to 1");
         }
     }
 
@@ -71,25 +75,17 @@ public class ShowServiceImpl implements ShowService {
         }
     }
 
-    private Show getTvMazeShow(int showId) {
+    private Show showFromTVMaze(int showId) {
         try {
             Show show = tvMazeService.getShowById(showId);
             setSchedule(show);
             setGenres(show);
             setLastUpdate(show);
+            createEmptyListOfSeasonFor(show);
             return show;
         } catch (TvMazeShowNotFoundException ex) {
             throw new ShowNotFoundException("Show id=" + showId + " Not Found");
         }
-    }
-
-    private void setLastUpdate(Show show) {
-        show.setLastUpdate(LocalDateTime.now().withNano(0));
-    }
-
-    private void setGenres(Show show) {
-        List<Genre> savedGenres = genreService.saveIfAbsent(show.getGenres());
-        show.setGenres(savedGenres);
     }
 
     private void setSchedule(Show show) {
@@ -97,18 +93,33 @@ public class ShowServiceImpl implements ShowService {
         show.setSchedule(scheduleWithSavedDays);
     }
 
+    private void setGenres(Show show) {
+        List<Genre> savedGenres = genreService.saveIfAbsent(show.getGenres());
+        show.setGenres(savedGenres);
+    }
+
+    private void setLastUpdate(Show show) {
+        show.setLastUpdate(LocalDateTime.now().withNano(0));
+    }
+
+    private void createEmptyListOfSeasonFor(Show show) {
+        show.setSeasons(new ArrayList<>());
+    }
+
     @Override
     public Season getSeasonById(int showId, int seasonId) {
-        if (showId < 1) {
-            throw new ShowNotFoundException("Show id should be greater than or equal to 1");
-        }
-        if (seasonId < 1) {
-            throw new SeasonNotFoundException("Season id should be greater than or equal to 1");
-        }
+        assertThatShowIdIsValid(showId);
+        assertThatSeasonIdIsValid(seasonId);
         Show show = getShowById(showId);
         Season season = getSeason(seasonId, show).orElseGet(() -> getSeasonFromTvMaze(seasonId, show));
 
         return season;
+    }
+
+    private void assertThatSeasonIdIsValid(int seasonId) {
+        if (seasonId < 1) {
+            throw new SeasonNotFoundException("Season id should be greater than or equal to 1");
+        }
     }
 
 
@@ -125,8 +136,9 @@ public class ShowServiceImpl implements ShowService {
     }
 
     private Season getSeasonFromTvMaze(int seasonId, Show show) {
-        Show savedShow = updateShow(show);
-        return getSeason(seasonId, savedShow)
+        Show updated = updateShow(show);
+        Show saved = showRepository.save(updated);
+        return getSeason(seasonId, saved)
                 .orElseThrow(() -> new SeasonNotFoundException("Show id=" + show.getId() + "Season id=" + seasonId + " Not found"));
     }
 
@@ -138,8 +150,9 @@ public class ShowServiceImpl implements ShowService {
                 List<Episode> episodes = tvMazeService.getEpisodes(season.getId());
                 season.setEpisodes(episodes);
             }
-            show.setSeasons(seasons);
-            return showRepository.save(show);
+
+            show.getSeasons().addAll(seasons);
+            return show;
         } catch (TvMazeSeasonNotFoundException ex) {
             throw new SeasonNotFoundException("Seasons of Show id=" + show.getId() + "Not found");
         }

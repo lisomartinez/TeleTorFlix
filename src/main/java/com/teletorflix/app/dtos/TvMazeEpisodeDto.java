@@ -24,37 +24,51 @@ import java.util.regex.Pattern;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TvMazeEpisode {
+public class TvMazeEpisodeDto {
 
     private static final Pattern pattern = Pattern.compile("(<.+?>)");
 
     private int id;
+
     private String name = "N/A";
-    private int number;
+
+    private int number = 0;
 
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate airdate;
+    private LocalDate airdate = LocalDate.of(1900, 1, 1);
 
     @JsonSerialize(using = LocalTimeSerializer.class)
     @JsonDeserialize(using = LocalTimeDeserializer.class)
     @JsonFormat(pattern = "HH:mm")
-    private LocalTime airtime;
-    private int runtime;
-    private String image;
-
-    @JsonProperty("url")
-    private String tvMaze = "N/A";
+    private LocalTime airtime = LocalTime.of(0, 0);
+    private Integer runtime = 0;
+    private String imageUrl;
+    private String tvmazeUrl;
     private String summary;
 
     public static TvMazeEpisodeBuilder builder() {
         return new TvMazeEpisodeBuilder();
     }
 
-    @JsonProperty("image")
-    private void originalImage(Map<String, String> imageUrl) {
-        this.image = imageUrl.getOrDefault("original", "N/A");
+    @JsonProperty("url")
+    private void setUrlOrDefault(String url) {
+        this.tvmazeUrl = getOrDefault(url);
+    }
+
+    private String getOrDefault(String field) {
+        return field == null ? "N/A" : field;
+    }
+
+    @JsonProperty(value = "image")
+    private void originalImage(Map<String, String> image) {
+
+        if (image == null || image.isEmpty()) {
+            this.imageUrl = "N/A";
+        } else {
+            this.imageUrl = image.putIfAbsent("original", "N/A");
+        }
     }
 
     @JsonSetter(value = "summary")
@@ -123,8 +137,8 @@ public class TvMazeEpisode {
             return this;
         }
 
-        public TvMazeEpisode build() {
-            return new TvMazeEpisode(id, name, number, airdate, airtime, runtime, image, tvMaze, summary);
+        public TvMazeEpisodeDto build() {
+            return new TvMazeEpisodeDto(id, name, number, airdate, airtime, runtime, image, tvMaze, summary);
         }
     }
 }

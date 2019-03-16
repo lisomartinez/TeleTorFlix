@@ -1,4 +1,4 @@
-package com.teletorflix.app.controllers;
+package com.teletorflix.app.controllers.utils;
 
 import com.teletorflix.app.model.Role;
 import com.teletorflix.app.model.User;

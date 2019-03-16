@@ -1,5 +1,6 @@
 package com.teletorflix.app.controllers;
 
+import com.teletorflix.app.controllers.utils.AccessTokenFactory;
 import com.teletorflix.app.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

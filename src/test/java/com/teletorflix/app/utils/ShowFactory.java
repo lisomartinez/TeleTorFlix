@@ -1,12 +1,20 @@
 package com.teletorflix.app.utils;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.teletorflix.app.dtos.JsonTestFiles;
+import com.teletorflix.app.dtos.TvMazeEpisodeDto;
 import com.teletorflix.app.model.*;
+import org.modelmapper.ModelMapper;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ShowFactory {
 
@@ -46,7 +54,7 @@ public class ShowFactory {
         return new Schedule(1, Set.of(new ScheduleDay(4, "Thursday")), LocalTime.of(22, 0));
     }
 
-    public static Show getShowComplete(LocalDateTime lastUpdate, String status) {
+    public static Show getShowComplete(LocalDateTime lastUpdate, String status) throws IOException {
         Show show = getShowBase();
         show.setSchedule(getSchedule());
         show.setGenres(getGenres());
@@ -61,19 +69,19 @@ public class ShowFactory {
         return show;
     }
 
-    public static Show getShowUptodateAiring() {
+    public static Show getShowUptodateAiring() throws IOException {
         return getShowComplete(LocalDateTime.now(), "Airing");
     }
 
-    public static Show getShowUptodateEnded() {
+    public static Show getShowUptodateEnded() throws IOException {
         return getShowComplete(LocalDateTime.now(), "Ended");
     }
 
-    public static Show getShowOutdatedAiring() {
+    public static Show getShowOutdatedAiring() throws IOException {
         return getShowComplete(LocalDateTime.now().minusHours(2), "Airing");
     }
 
-    public static Show getShowOutdatedEnded() {
+    public static Show getShowOutdatedEnded() throws IOException {
         return getShowComplete(LocalDateTime.now().minusHours(2), "Ended");
     }
 
@@ -125,57 +133,29 @@ public class ShowFactory {
         return List.of(seasonOne, seasonTwo, seasonThree);
     }
 
-    public static Season getLastSeasonWithEpisodes() {
+    public static Season getLastSeasonWithEpisodes() throws IOException {
         return Season.builder()
-                .id(3)
+                .id(6233)
                 .number(3)
                 .episodeOrder(13)
                 .premiereDate(LocalDate.of(2015, 6, 25))
                 .endDate(LocalDate.of(2015, 9, 10))
-                .image("http://static.tvmaze.com/uploads/images/original_untouched/24/60942.jpg")
-                .tvMaze("http://www.tvmaze.com/seasons/2/under-the-dome-season-2")
+                .image("http://static.tvmaze.com/uploads/images/original_untouched/182/457332.jpg")
+                .tvMaze("http://www.tvmaze.com/seasons/6233/under-the-dome-season-3")
                 .summary("N/A")
                 .episodes(getEpisodesFromLastSeason())
                 .build();
     }
 
-    public static List<Episode> getEpisodesFromLastSeason() {
-        Episode eleven = Episode.builder()
-                .id(142270)
-                .name("Move On")
-                .number(1)
-                .airDate(LocalDate.of(2015, 6, 25))
-                .airTime(LocalTime.of(22, 0))
-                .runtime(60)
-                .image("http://static.tvmaze.com/uploads/images/original_untouched/12/31233.jpg")
-                .tvMaze("http://www.tvmaze.com/episodes/142270/under-the-dome-3x01-move-on")
-                .summary("Season 3 begins with Chester's Mill residents appearing inside and outside the Dome following an evacuation into the tunnels beneath the town. Meanwhile, the Dome begins to reveal its ultimate agenda; and surprising alliances form as new residents emerge.")
-                .build();
+    public static List<Episode> getEpisodesFromLastSeason() throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
 
-        Episode twelve = Episode.builder()
-                .id(151048)
-                .name("But I'm Not")
-                .number(2)
-                .airDate(LocalDate.of(2015, 6, 25))
-                .airTime(LocalTime.of(22, 0))
-                .runtime(60)
-                .image("http://static.tvmaze.com/uploads/images/original_untouched/12/31234.jpg")
-                .tvMaze("http://www.tvmaze.com/episodes/151048/under-the-dome-3x02-but-im-not")
-                .summary(">Chester's Mill residents appear inside and outside the Dome following an exit into the tunnels beneath the town. Meanwhile, the Dome begins to reveal its ultimate agenda; and surprising alliances form as new residents emerge.")
-                .build();
-
-        Episode thirteen = Episode.builder()
-                .id(151645)
-                .name("Redux")
-                .number(3)
-                .airDate(LocalDate.of(2015, 9, 10))
-                .airTime(LocalTime.of(22, 0))
-                .runtime(60)
-                .image("http://static.tvmaze.com/uploads/images/original_untouched/12/31939.jpg")
-                .tvMaze("http://www.tvmaze.com/episodes/151645/under-the-dome-3x03-redux")
-                .summary("The residents of Chester's Mill try to move on with their lives in the aftermath of their mysterious experience in the tunnels beneath town. Meanwhile, Big Jim suspects new residents Christine and Eva are keeping secrets concerning the Dome.")
-                .build();
-
-        return List.of(eleven, twelve, thirteen);
+        File episodes = JsonTestFiles.getSeason6233Episodes();
+        List<TvMazeEpisodeDto> episodeDtoList = objectMapper.readValue(episodes, new TypeReference<List<TvMazeEpisodeDto>>() {
+        });
+        ModelMapper modelMapper = new ModelMapper();
+        return episodeDtoList.stream()
+                .map(ep -> modelMapper.map(ep, Episode.class))
+                .collect(Collectors.toList());
     }
 }

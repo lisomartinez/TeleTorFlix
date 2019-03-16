@@ -13,7 +13,7 @@ public class ShowController {
 
     public static final String SHOWS = "/shows";
     public static final String SHOW_ID = "/{id}";
-    public static final String SEASONS = "/season";
+    public static final String SEASON = "/season";
     public static final String SEASON_NUMBER = "/{seasonNumber}";
 
     private ShowService showService;
@@ -23,13 +23,13 @@ public class ShowController {
         this.showService = showService;
     }
 
-    @GetMapping(SHOW_ID)
+    @GetMapping(value = SHOW_ID)
     @ResponseStatus(HttpStatus.OK)
     public Show getShow(@PathVariable int id) {
         return showService.getShowById(id);
     }
 
-    @GetMapping(SHOW_ID + SEASONS + SEASON_NUMBER)
+    @GetMapping(SHOW_ID + SEASON + SEASON_NUMBER)
     @ResponseStatus(HttpStatus.OK)
     public Season getSeason(@PathVariable int id, @PathVariable int seasonNumber) {
         return showService.getSeasonById(id, seasonNumber);

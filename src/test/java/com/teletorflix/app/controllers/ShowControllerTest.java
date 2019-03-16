@@ -1,6 +1,7 @@
 package com.teletorflix.app.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.teletorflix.app.controllers.utils.AccessTokenFactory;
 import com.teletorflix.app.exceptions.SeasonNotFoundException;
 import com.teletorflix.app.exceptions.ShowNotFoundException;
 import com.teletorflix.app.model.Season;
@@ -86,7 +87,7 @@ class ShowControllerTest {
         when(showService.getSeasonById(showId, seasonNumber)).thenReturn(ShowFactory.getLastSeasonWithEpisodes());
 
         MvcResult result = this.mockMvc.perform(get(ShowController.SHOWS + ShowController.SHOW_ID +
-                ShowController.SEASONS + ShowController.SEASON_NUMBER, showId, seasonNumber)
+                ShowController.SEASON + ShowController.SEASON_NUMBER, showId, seasonNumber)
                 .header("Authorization", "Bearer " + token))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -106,7 +107,7 @@ class ShowControllerTest {
         when(showService.getSeasonById(showId, seasonNumber)).thenThrow(new ShowNotFoundException());
 
         this.mockMvc.perform(get(ShowController.SHOWS + ShowController.SHOW_ID +
-                ShowController.SEASONS + ShowController.SEASON_NUMBER, showId, seasonNumber)
+                ShowController.SEASON + ShowController.SEASON_NUMBER, showId, seasonNumber)
                 .header("Authorization", "Bearer " + token))
                 .andDo(print())
                 .andExpect(status().isNotFound());
@@ -122,9 +123,20 @@ class ShowControllerTest {
         when(showService.getSeasonById(showId, seasonNumber)).thenThrow(new SeasonNotFoundException());
 
         this.mockMvc.perform(get(ShowController.SHOWS + ShowController.SHOW_ID +
-                ShowController.SEASONS + ShowController.SEASON_NUMBER, showId, seasonNumber)
+                ShowController.SEASON + ShowController.SEASON_NUMBER, showId, seasonNumber)
                 .header("Authorization", "Bearer " + token))
                 .andDo(print())
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void getEpisode_ValidShowAndValidSeasonAndValidEpisode_ShouldReturnEpisode() {
+//        String token = getToken();
+//
+//        final int showId = 1;
+//        final int seasonNumber = 1;
+//        final int episodeNumber = 1;
+//
+//        when(showService.getEpisode(showId, seasonNumber, episodeNumber)).thenReturn()
     }
 }

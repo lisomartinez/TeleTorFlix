@@ -1,10 +1,10 @@
 package com.teletorflix.app.service;
 
-import com.teletorflix.app.dtos.TvMazeEpisode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.teletorflix.app.dtos.TvMazeEpisodeDto;
 import com.teletorflix.app.dtos.TvMazeSeason;
 import com.teletorflix.app.dtos.TvMazeShowDto;
-import com.teletorflix.app.exceptions.TvMazeSeasonInvalidException;
-import com.teletorflix.app.exceptions.TvMazeShowInvalidIdException;
+import com.teletorflix.app.exceptions.TvMazeResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
@@ -21,11 +21,13 @@ public class TvMazeRestClient implements TvMazeClient {
 
     private RestTemplate restTemplate;
     private TvMazeURLConstructor tvMazeURLConstructor;
+    private ObjectMapper objectMapper;
 
     @Autowired
     public TvMazeRestClient(RestTemplateBuilder restTemplateBuilder,
                             TvMazeURLConstructor URLConstructor,
-                            TvMazeRestRespondeErrorHandler errorHandler) {
+                            TvMazeRestRespondeErrorHandler errorHandler, ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
         this.restTemplate = restTemplateBuilder
                 .errorHandler(errorHandler)
                 .build();
@@ -38,7 +40,7 @@ public class TvMazeRestClient implements TvMazeClient {
             String url = tvMazeURLConstructor.getShowByIdURL(id);
             return restTemplate.getForObject(url, TvMazeShowDto.class);
         } catch (IllegalArgumentException ex) {
-            throw new TvMazeShowInvalidIdException("Show id invalid " + id);
+            throw new TvMazeResourceNotFoundException("Show id invalid " + id);
         }
     }
 
@@ -54,7 +56,7 @@ public class TvMazeRestClient implements TvMazeClient {
                     });
             return response.getBody();
         } catch (IllegalArgumentException ex) {
-            throw new TvMazeShowInvalidIdException("Show page id invalid " + page);
+            throw new TvMazeResourceNotFoundException("Show page id invalid " + page);
         }
     }
 
@@ -70,23 +72,35 @@ public class TvMazeRestClient implements TvMazeClient {
                     });
             return response.getBody();
         } catch (IllegalArgumentException ex) {
-            throw new TvMazeShowInvalidIdException("Show id invalid " + showId);
+            throw new TvMazeResourceNotFoundException("Show id invalid " + showId);
         }
     }
 
     @Override
-    public List<TvMazeEpisode> getEpisodes(int seasonId) {
+    public List<TvMazeEpisodeDto> getEpisodes(int seasonId) {
         try {
             String url = tvMazeURLConstructor.getEpisodesURL(seasonId);
-            ResponseEntity<List<TvMazeEpisode>> response = restTemplate.exchange(
+
+//            ResponseEntity<String> res = restTemplate.exchange(
+//                    url,
+//                    GET,
+//                    null,
+//                    String.class);
+//
+//            List<TvMazeEpisodeDto> episodeDtoList = objectMapper.readValue(res.getBody(),new TypeReference<List<TvMazeEpisodeDto>>() { });
+//            return episodeDtoList;
+
+            ResponseEntity<List<TvMazeEpisodeDto>> res = restTemplate.exchange(
                     url,
                     GET,
                     null,
-                    new ParameterizedTypeReference<List<TvMazeEpisode>>() {
+                    new ParameterizedTypeReference<List<TvMazeEpisodeDto>>() {
                     });
-            return response.getBody();
+
+            return res.getBody();
+
         } catch (IllegalArgumentException ex) {
-            throw new TvMazeSeasonInvalidException("Season id=" + "inavlid");
+            throw new TvMazeResourceNotFoundException("Season id=" + "inavlid");
         }
     }
 }

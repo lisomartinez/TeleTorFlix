@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -121,7 +122,7 @@ class ShowRepositoryIT {
     }
 
     @Test
-    void findSeasonById() {
+    void findSeasonById() throws IOException {
         Season seasonOne = ShowFactory.getSeasons().get(0);
 
         Show show = ShowFactory.getShowComplete(LocalDateTime.now(), "Ended");

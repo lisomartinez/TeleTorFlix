@@ -89,7 +89,7 @@ create table public.episode
   name       varchar(255),
   number     integer,
   runtime    integer,
-  summary    varchar(255),
+  summary    varchar(5000),
   tvmaze_url varchar(255),
   season_id  integer,
   constraint fk_episode_season foreign key (season_id) references public.season
@@ -111,13 +111,11 @@ create table public.users
 
 create table public.users_roles
 (
+  id integer primary key AUTO_INCREMENT,
   user_id integer      NOT NULL,
   role    varchar(255) NOT NULL,
-  primary key (user_id, role),
   constraint fk_users_users_roles foreign key (user_id) references public.users
 );
-
-
 
 
 

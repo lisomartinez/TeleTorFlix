@@ -27,9 +27,9 @@ public class TvMazeSeason {
 
     private int id;
     private int number;
-    private String name = "N/A";
-
+    private String name;
     private int episodeOrder;
+
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -40,12 +40,21 @@ public class TvMazeSeason {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate = LocalDate.of(1900, 1, 1);
 
-    private String imageUrl = "N/A";
-    private String url = "N/A";
-    private String summary = "N/A";
+    private String imageUrl;
+    private String tvMazeUrl;
+    private String summary;
 
     public static TvMazeSeasonBuilder builder() {
         return new TvMazeSeasonBuilder();
+    }
+
+    @JsonProperty("name")
+    private void setNameOrDefault(String name) {
+        this.name = getOrDefault(name);
+    }
+
+    private String getOrDefault(String field) {
+        return field == null || field.isBlank() ? "N/A" : field;
     }
 
     @JsonSetter(value = "summary")
@@ -58,9 +67,19 @@ public class TvMazeSeason {
         }
     }
 
-    @JsonProperty("image")
+    @JsonProperty("url")
+    private void setUrlOrDefault(String url) {
+        this.tvMazeUrl = getOrDefault(url);
+    }
+
+    @JsonProperty(value = "image")
     private void originalImage(Map<String, String> image) {
-        this.imageUrl = image.getOrDefault("original", "N/A");
+
+        if (image == null || image.isEmpty()) {
+            this.imageUrl = "N/A";
+        } else {
+            this.imageUrl = image.putIfAbsent("original", "N/A");
+        }
     }
 
     public static class TvMazeSeasonBuilder {

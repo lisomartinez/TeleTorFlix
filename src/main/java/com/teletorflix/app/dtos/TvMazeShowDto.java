@@ -29,12 +29,14 @@ public class TvMazeShowDto {
 
     private final static Pattern pattern = Pattern.compile("(<.+?>)");
 
+    private static final String DEFAULT = "N/A";
+
     private int id;
     private String name;
-    private String type = "N/A";
-    private String language = "N/A";
+    private String type;
+    private String language;
     private List<Genre> genres;
-    private String status = "N/A";
+    private String status;
     private int runtime = 0;
 
     @JsonSerialize(using = LocalDateSerializer.class)
@@ -42,18 +44,36 @@ public class TvMazeShowDto {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate premiered = LocalDate.of(1900, 1, 1);
 
-    private String officialSite = "N/A";
+    private String officialSite;
     private TvMazeScheduleDto schedule;
-
-    private String tvMazeUrl = "N/A";
-    private String imdbUrl = "N/A";
-    private String imageUrl = "N/A";
-    private String summary = "N/A";
+    private String tvMazeUrl;
+    private String imdbUrl;
+    private String imageUrl;
+    private String summary;
 
     private LocalDateTime updateDateTime;
 
     public static ShowDtoBuilder builder() {
         return new ShowDtoBuilder();
+    }
+
+    @JsonProperty("type")
+    private void setTypeOrDefault(String type) {
+        this.type = getOrDefault(type);
+    }
+
+    private String getOrDefault(String field) {
+        return field == null ? "N/A" : field;
+    }
+
+    @JsonProperty("language")
+    private void setLanguageOrDefault(String language) {
+        this.language = getOrDefault(language);
+    }
+
+    @JsonProperty("status")
+    private void setStatusOrDefault(String status) {
+        this.status = getOrDefault(status);
     }
 
     @JsonSetter("genres")
@@ -65,14 +85,24 @@ public class TvMazeShowDto {
         }
     }
 
-    @JsonSetter("url")
-    private void setTvMazeUrl(String url) {
-        this.tvMazeUrl = url;
+    @JsonProperty("officialSite")
+    private void setOfficialSiteOrDefault(String officialSite) {
+        this.officialSite = getOrDefault(officialSite);
     }
 
-    @JsonProperty("image")
+    @JsonProperty("url")
+    private void setTvMazeUrl(String url) {
+        this.tvMazeUrl = getOrDefault(url);
+    }
+
+    @JsonProperty(value = "image")
     private void originalImage(Map<String, String> image) {
-        this.imageUrl = image.getOrDefault("original", "N/A");
+
+        if (image == null || image.isEmpty()) {
+            this.imageUrl = "N/A";
+        } else {
+            this.imageUrl = image.putIfAbsent("original", "N/A");
+        }
     }
 
     @JsonProperty("externals")
@@ -86,7 +116,7 @@ public class TvMazeShowDto {
     }
 
 
-    @JsonSetter(value = "summary")
+    @JsonProperty(value = "summary")
     private void setSummaryJson(String summaryJson) {
         if (summaryJson == null || summaryJson.isBlank()) {
             this.summary = "N/A";

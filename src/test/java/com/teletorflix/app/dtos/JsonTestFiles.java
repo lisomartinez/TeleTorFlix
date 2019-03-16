@@ -45,4 +45,8 @@ public class JsonTestFiles {
     public static File getShowSeasons() {
         return path.resolve("TvMaze_ShowOne_AllSeasons.json").toFile();
     }
+
+    public static File getSeason6233Episodes() {
+        return path.resolve("Episodes_Season6233.json").toFile();
+    }
 }

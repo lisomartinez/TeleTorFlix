@@ -48,7 +48,7 @@ class UserDetailsServiceImplTest {
 
         assertThat(userDetails.getUsername()).isEqualTo(user.getUsername());
         assertThat(userDetails.getPassword()).isEqualTo(user.getPassword());
-        assertThat(userDetails.getAuthorities()).isEqualTo(Set.of(new SimpleGrantedAuthority("Role_AUTHENTICATED")));
+        assertThat(userDetails.getAuthorities()).isEqualTo(Set.of(new SimpleGrantedAuthority("Role_AUTHENTICATED"), new SimpleGrantedAuthority("Role_USER")));
         assertThat(userDetails.isAccountNonExpired()).isTrue();
         assertThat(userDetails.isAccountNonLocked()).isTrue();
         assertThat(userDetails.isCredentialsNonExpired()).isTrue();

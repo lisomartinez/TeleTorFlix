@@ -1,4 +1,4 @@
-package com.teletorflix.app.controllers;
+package com.teletorflix.app.controllers.utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -75,14 +75,18 @@ public class AccessTokenFactory {
         return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NTI2MDk5MDMsInVzZXJfbmFtZSI6IkpvaG4iLCJhdXRob3JpdGllcyI6WyJSb2xlX0FVVEhFTlRJQ0FURUQiLCJSb2xlX0FETUlOIl0sImp0aSI6ImNkNDI0MjA5LWQ4ZjctNDljYy1hZGU0LTNmMjhlMzI4ODk5NiIsImNsaWVudF9pZCI6InR0Zi1jbGllbnQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiLCJ0cnVzdCJdfQ.4e40eo-DY8V-cd9d5H7XM9Iaqzl-zhvPI9RWbW984k4";
     }
 
-    public String createToken() throws IOException {
-        String url = serverProperties.getAddress().toString() + serverProperties.getPort().toString() + "/oauth/token";
+    public String createToken(String baseUrl) throws IOException {
+        String url = baseUrl + "/oauth/token";
         HttpEntity entity = HttpEntityFactory.getEntityWithHeaders(url);
 
         RestTemplate rest = new RestTemplate();
         String body = rest.exchange(url, HttpMethod.POST, entity, String.class).getBody();
         JsonNode jsonNode = objectMapper.readTree(body);
         return jsonNode.get("access_token").asText();
+    }
 
+    public HttpEntity entityWithAccessTokenHeader(String baseUrl) throws IOException {
+        String token = createToken(baseUrl);
+        return HttpEntityFactory.createEntityWithHeaderWithAccesToken(token);
     }
 }

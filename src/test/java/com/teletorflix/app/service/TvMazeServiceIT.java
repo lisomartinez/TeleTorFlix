@@ -1,9 +1,12 @@
 package com.teletorflix.app.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.teletorflix.app.dtos.JsonTestFiles;
+import com.teletorflix.app.dtos.TvMazeEpisodeDto;
 import com.teletorflix.app.dtos.TvMazeShowDto;
-import com.teletorflix.app.exceptions.TvMazeShowInvalidIdException;
+import com.teletorflix.app.exceptions.TvMazeShowNotFoundException;
+import com.teletorflix.app.model.Episode;
 import com.teletorflix.app.model.Schedule;
 import com.teletorflix.app.model.ScheduleDay;
 import com.teletorflix.app.model.Show;
@@ -16,13 +19,15 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @ActiveProfiles("dev")
-class TvMazeServiceFunctionalTest {
+class TvMazeServiceIT {
 
 
     @Autowired
@@ -66,6 +71,20 @@ class TvMazeServiceFunctionalTest {
 
     @Test
     void FetchById_InvalidID_ThrowsShowNotFoundException() {
-        assertThrows(TvMazeShowInvalidIdException.class, () -> tvMazeService.getShowById(0));
+        assertThrows(TvMazeShowNotFoundException.class, () -> tvMazeService.getShowById(0));
+    }
+
+    @Test
+    void getSeason_ValidShowIdAndValisSeasonId_ShouldReturnEpisodes() throws IOException {
+        File episodes = JsonTestFiles.getSeason6233Episodes();
+        List<TvMazeEpisodeDto> episodeDtoList = objectMapper.readValue(episodes, new TypeReference<List<TvMazeEpisodeDto>>() {
+        });
+        assertThat(episodeDtoList.size()).isEqualTo(13);
+
+        List<Episode> expectedList = episodeDtoList.stream().map(ep -> modelMapper.map(ep, Episode.class)).collect(Collectors.toList());
+
+        List<Episode> episodeList = tvMazeService.getEpisodes(6233);
+
+        assertThat(episodeList).containsExactlyElementsOf(expectedList);
     }
 }

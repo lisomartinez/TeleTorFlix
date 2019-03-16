@@ -29,7 +29,7 @@ public class TvMazeScheduleDto {
     @JsonSerialize(using = LocalTimeSerializer.class)
     @JsonDeserialize(using = LocalTimeDeserializer.class)
     @JsonFormat(pattern = "HH:mm")
-    private LocalTime time;
+    private LocalTime time = LocalTime.of(0, 0);
 
     public static TvMazeScheduleDto of(Set<ScheduleDay> days, LocalTime time) {
         return new TvMazeScheduleDto(days, time);
@@ -44,8 +44,12 @@ public class TvMazeScheduleDto {
 
     @JsonSetter(value = "days")
     private void setDaysJson(List<String> daysStr) {
-        days = daysStr.stream()
-                .map(ScheduleDay::of)
-                .collect(Collectors.toSet());
+        if (daysStr.isEmpty()) {
+            days = Set.of(ScheduleDay.of("N/A"));
+        } else {
+            days = daysStr.stream()
+                    .map(ScheduleDay::of)
+                    .collect(Collectors.toSet());
+        }
     }
 }

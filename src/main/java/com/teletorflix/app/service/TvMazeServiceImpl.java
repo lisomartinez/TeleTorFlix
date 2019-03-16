@@ -1,6 +1,6 @@
 package com.teletorflix.app.service;
 
-import com.teletorflix.app.dtos.TvMazeEpisode;
+import com.teletorflix.app.dtos.TvMazeEpisodeDto;
 import com.teletorflix.app.dtos.TvMazeSeason;
 import com.teletorflix.app.dtos.TvMazeShowDto;
 import com.teletorflix.app.exceptions.TvMazeResourceNotFoundException;
@@ -46,7 +46,7 @@ public class TvMazeServiceImpl implements TvMazeService {
             return seasons.stream()
                     .map(season -> modelMapper.map(season, Season.class))
                     .collect(Collectors.toList());
-        } catch (TvMazeSeasonNotFoundException ex) {
+        } catch (TvMazeResourceNotFoundException ex) {
             throw new TvMazeSeasonNotFoundException("TV Maze Show id=" + showId + " seasons not found");
         }
     }
@@ -54,7 +54,7 @@ public class TvMazeServiceImpl implements TvMazeService {
     @Override
     public List<Episode> getEpisodes(int seasonId) {
         try {
-            List<TvMazeEpisode> episodes = client.getEpisodes(seasonId);
+            List<TvMazeEpisodeDto> episodes = client.getEpisodes(seasonId);
             return episodes.stream()
                     .map(episode -> modelMapper.map(episode, Episode.class))
                     .collect(Collectors.toList());

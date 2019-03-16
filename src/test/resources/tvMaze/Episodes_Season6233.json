@@ -1,0 +1,275 @@
+[
+  {
+    "id": 142270,
+    "url": "http://www.tvmaze.com/episodes/142270/under-the-dome-3x01-move-on",
+    "name": "Move On",
+    "season": 3,
+    "number": 1,
+    "airdate": "2015-06-25",
+    "airtime": "21:00",
+    "airstamp": "2015-06-26T02:00:00+00:00",
+    "runtime": 60,
+    "image": {
+      "medium": "http://static.tvmaze.com/uploads/images/medium_landscape/12/31233.jpg",
+      "original": "http://static.tvmaze.com/uploads/images/original_untouched/12/31233.jpg"
+    },
+    "summary": "<p>Season 3 begins with Chester's Mill residents appearing inside and outside the Dome following an evacuation into the tunnels beneath the town. Meanwhile, the Dome begins to reveal its ultimate agenda; and surprising alliances form as new residents emerge.</p>",
+    "_links": {
+      "self": {
+        "href": "http://api.tvmaze.com/episodes/142270"
+      }
+    }
+  },
+  {
+    "id": 151048,
+    "url": "http://www.tvmaze.com/episodes/151048/under-the-dome-3x02-but-im-not",
+    "name": "But I'm Not",
+    "season": 3,
+    "number": 2,
+    "airdate": "2015-06-25",
+    "airtime": "22:00",
+    "airstamp": "2015-06-26T03:00:00+00:00",
+    "runtime": 60,
+    "image": {
+      "medium": "http://static.tvmaze.com/uploads/images/medium_landscape/12/31234.jpg",
+      "original": "http://static.tvmaze.com/uploads/images/original_untouched/12/31234.jpg"
+    },
+    "summary": "<p>Chester's Mill residents appear inside and outside the Dome following an exit into the tunnels beneath the town. Meanwhile, the Dome begins to reveal its ultimate agenda; and surprising alliances form as new residents emerge.</p>",
+    "_links": {
+      "self": {
+        "href": "http://api.tvmaze.com/episodes/151048"
+      }
+    }
+  },
+  {
+    "id": 151645,
+    "url": "http://www.tvmaze.com/episodes/151645/under-the-dome-3x03-redux",
+    "name": "Redux",
+    "season": 3,
+    "number": 3,
+    "airdate": "2015-07-02",
+    "airtime": "22:00",
+    "airstamp": "2015-07-03T03:00:00+00:00",
+    "runtime": 60,
+    "image": {
+      "medium": "http://static.tvmaze.com/uploads/images/medium_landscape/12/31939.jpg",
+      "original": "http://static.tvmaze.com/uploads/images/original_untouched/12/31939.jpg"
+    },
+    "summary": "<p>The residents of Chester's Mill try to move on with their lives in the aftermath of their mysterious experience in the tunnels beneath town. Meanwhile, Big Jim suspects new residents Christine and Eva are keeping secrets concerning the Dome.</p><p><br><br></p>",
+    "_links": {
+      "self": {
+        "href": "http://api.tvmaze.com/episodes/151645"
+      }
+    }
+  },
+  {
+    "id": 153120,
+    "url": "http://www.tvmaze.com/episodes/153120/under-the-dome-3x04-the-kinship",
+    "name": "The Kinship",
+    "season": 3,
+    "number": 4,
+    "airdate": "2015-07-09",
+    "airtime": "22:00",
+    "airstamp": "2015-07-10T03:00:00+00:00",
+    "runtime": 60,
+    "image": {
+      "medium": "http://static.tvmaze.com/uploads/images/medium_landscape/12/32457.jpg",
+      "original": "http://static.tvmaze.com/uploads/images/original_untouched/12/32457.jpg"
+    },
+    "summary": "<p>Urges the townspeople towards specific individuals and projects that remind them of their experience in the tunnels. Also, Julia and Big Jim make shocking discoveries that reveal a new threat within the Dome.</p>",
+    "_links": {
+      "self": {
+        "href": "http://api.tvmaze.com/episodes/153120"
+      }
+    }
+  },
+  {
+    "id": 176889,
+    "url": "http://www.tvmaze.com/episodes/176889/under-the-dome-3x05-alaska",
+    "name": "Alaska",
+    "season": 3,
+    "number": 5,
+    "airdate": "2015-07-16",
+    "airtime": "22:00",
+    "airstamp": "2015-07-17T03:00:00+00:00",
+    "runtime": 60,
+    "image": {
+      "medium": "http://static.tvmaze.com/uploads/images/medium_landscape/13/33494.jpg",
+      "original": "http://static.tvmaze.com/uploads/images/original_untouched/13/33494.jpg"
+    },
+    "summary": "<p>Big Jim and Julia form a tentative alliance to search for proof that will discredit Christine, which leads them to new information about the Dome's capabilities. Meanwhile, when tensions run high in town and threaten Christine's leadership, she puts a plan in play that has deadly consequences.</p>",
+    "_links": {
+      "self": {
+        "href": "http://api.tvmaze.com/episodes/176889"
+      }
+    }
+  },
+  {
+    "id": 176890,
+    "url": "http://www.tvmaze.com/episodes/176890/under-the-dome-3x06-caged",
+    "name": "Caged",
+    "season": 3,
+    "number": 6,
+    "airdate": "2015-07-23",
+    "airtime": "22:00",
+    "airstamp": "2015-07-24T03:00:00+00:00",
+    "runtime": 60,
+    "image": {
+      "medium": "http://static.tvmaze.com/uploads/images/medium_landscape/13/34493.jpg",
+      "original": "http://static.tvmaze.com/uploads/images/original_untouched/13/34493.jpg"
+    },
+    "summary": "<p>For information about her agenda. Also, when Joe and Norrie question the town's new rules, they find themselves in a dangerous face-off with the increasingly unstable residents.</p>",
+    "_links": {
+      "self": {
+        "href": "http://api.tvmaze.com/episodes/176890"
+      }
+    }
+  },
+  {
+    "id": 185048,
+    "url": "http://www.tvmaze.com/episodes/185048/under-the-dome-3x07-ejecta",
+    "name": "Ejecta",
+    "season": 3,
+    "number": 7,
+    "airdate": "2015-07-30",
+    "airtime": "22:00",
+    "airstamp": "2015-07-31T03:00:00+00:00",
+    "runtime": 60,
+    "image": {
+      "medium": "http://static.tvmaze.com/uploads/images/medium_landscape/13/34948.jpg",
+      "original": "http://static.tvmaze.com/uploads/images/original_untouched/13/34948.jpg"
+    },
+    "summary": "<p>As the world outside the Dome is rocked by a catastrophic meteor shower, unexpected alliances form inside the barrier. Eva tries to indoctrinate Barbie deeper into The Kinship and Big Jim and Julia turn to one another while isolated on Bird Island outside of town. Also, Joe is forced to accept help from Sam, the man who killed his sister.</p>",
+    "_links": {
+      "self": {
+        "href": "http://api.tvmaze.com/episodes/185048"
+      }
+    }
+  },
+  {
+    "id": 185049,
+    "url": "http://www.tvmaze.com/episodes/185049/under-the-dome-3x08-breaking-point",
+    "name": "Breaking Point",
+    "season": 3,
+    "number": 8,
+    "airdate": "2015-08-06",
+    "airtime": "22:00",
+    "airstamp": "2015-08-07T03:00:00+00:00",
+    "runtime": 60,
+    "image": {
+      "medium": "http://static.tvmaze.com/uploads/images/medium_landscape/14/36036.jpg",
+      "original": "http://static.tvmaze.com/uploads/images/original_untouched/14/36036.jpg"
+    },
+    "summary": "<p>Who is mobilizing residents to work on a massive excavation project in the caves underneath the town. Also, Hunter uses his tech skills to contact the outside world.</p>",
+    "_links": {
+      "self": {
+        "href": "http://api.tvmaze.com/episodes/185049"
+      }
+    }
+  },
+  {
+    "id": 185050,
+    "url": "http://www.tvmaze.com/episodes/185050/under-the-dome-3x09-plan-b",
+    "name": "Plan B",
+    "season": 3,
+    "number": 9,
+    "airdate": "2015-08-13",
+    "airtime": "22:00",
+    "airstamp": "2015-08-14T03:00:00+00:00",
+    "runtime": 60,
+    "image": {
+      "medium": "http://static.tvmaze.com/uploads/images/medium_landscape/14/37358.jpg",
+      "original": "http://static.tvmaze.com/uploads/images/original_untouched/14/37358.jpg"
+    },
+    "summary": "<p>Control over the town by initiating a life-or-death plot involving Barbie and Eva, while Joe and Norrie conduct research to better understand the Dome's ultimate agenda. Meanwhile, Hunter finds more information about the true head of Aktaion, the nefarious private corporation that wants to harness the Dome's energy.</p>",
+    "_links": {
+      "self": {
+        "href": "http://api.tvmaze.com/episodes/185050"
+      }
+    }
+  },
+  {
+    "id": 185051,
+    "url": "http://www.tvmaze.com/episodes/185051/under-the-dome-3x10-legacy",
+    "name": "Legacy",
+    "season": 3,
+    "number": 10,
+    "airdate": "2015-08-20",
+    "airtime": "22:00",
+    "airstamp": "2015-08-21T03:00:00+00:00",
+    "runtime": 60,
+    "image": {
+      "medium": "http://static.tvmaze.com/uploads/images/medium_landscape/15/39057.jpg",
+      "original": "http://static.tvmaze.com/uploads/images/original_untouched/15/39057.jpg"
+    },
+    "summary": "<p>The nefarious head of Aktaion. Despite Hektor revealing more about the Dome's origins and helping to strike back at it, Big Jim and Julia still worry he will betray them. Meanwhile, Hunter receives encrypted files that give disturbing insights into the final effect the Dome will have on the infected townspeople.</p>",
+    "_links": {
+      "self": {
+        "href": "http://api.tvmaze.com/episodes/185051"
+      }
+    }
+  },
+  {
+    "id": 185052,
+    "url": "http://www.tvmaze.com/episodes/185052/under-the-dome-3x11-love-is-a-battlefield",
+    "name": "Love is a Battlefield",
+    "season": 3,
+    "number": 11,
+    "airdate": "2015-08-27",
+    "airtime": "22:00",
+    "airstamp": "2015-08-28T03:00:00+00:00",
+    "runtime": 60,
+    "image": {
+      "medium": "http://static.tvmaze.com/uploads/images/medium_landscape/16/40250.jpg",
+      "original": "http://static.tvmaze.com/uploads/images/original_untouched/16/40250.jpg"
+    },
+    "summary": "<p>The head of Aktaion, to test a possible cure for infected townspeople. Also, Joe chooses to work with Christine after she shares some shocking information about the entity behind the Dome.</p>",
+    "_links": {
+      "self": {
+        "href": "http://api.tvmaze.com/episodes/185052"
+      }
+    }
+  },
+  {
+    "id": 185053,
+    "url": "http://www.tvmaze.com/episodes/185053/under-the-dome-3x12-incandescence",
+    "name": "Incandescence",
+    "season": 3,
+    "number": 12,
+    "airdate": "2015-09-03",
+    "airtime": "22:00",
+    "airstamp": "2015-09-04T03:00:00+00:00",
+    "runtime": 60,
+    "image": {
+      "medium": "http://static.tvmaze.com/uploads/images/medium_landscape/16/41932.jpg",
+      "original": "http://static.tvmaze.com/uploads/images/original_untouched/16/41932.jpg"
+    },
+    "summary": "<p>Who is adamant that infected townspeople never escape the Dome.</p>",
+    "_links": {
+      "self": {
+        "href": "http://api.tvmaze.com/episodes/185053"
+      }
+    }
+  },
+  {
+    "id": 185054,
+    "url": "http://www.tvmaze.com/episodes/185054/under-the-dome-3x13-the-enemy-within",
+    "name": "The Enemy Within",
+    "season": 3,
+    "number": 13,
+    "airdate": "2015-09-10",
+    "airtime": "22:00",
+    "airstamp": "2015-09-11T02:00:00+00:00",
+    "runtime": 60,
+    "image": {
+      "medium": "http://static.tvmaze.com/uploads/images/medium_landscape/17/43622.jpg",
+      "original": "http://static.tvmaze.com/uploads/images/original_untouched/17/43622.jpg"
+    },
+    "summary": "<p>As the Dome in Chester's Mill comes down, the Resistance makes a final attempt to protect the outside world from the infected townspeople in the Kinship and their new queen.</p>",
+    "_links": {
+      "self": {
+        "href": "http://api.tvmaze.com/episodes/185054"
+      }
+    }
+  }
+]

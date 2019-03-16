@@ -7,7 +7,6 @@ import com.teletorflix.app.dtos.TvMazeScheduleDto;
 import com.teletorflix.app.dtos.TvMazeSeason;
 import com.teletorflix.app.dtos.TvMazeShowDto;
 import com.teletorflix.app.exceptions.TvMazeResourceNotFoundException;
-import com.teletorflix.app.exceptions.TvMazeShowInvalidIdException;
 import com.teletorflix.app.model.ScheduleDay;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -94,7 +93,7 @@ class TvMazeClienTest {
 
     @Test
     void getById_InvalidId_ThrowsShowNotFoundException() {
-        assertThrows(TvMazeShowInvalidIdException.class, () -> tvMazeRestClient.getShowById(0));
+        assertThrows(TvMazeResourceNotFoundException.class, () -> tvMazeRestClient.getShowById(0));
     }
 
 

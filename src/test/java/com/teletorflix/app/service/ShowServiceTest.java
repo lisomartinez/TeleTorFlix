@@ -3,6 +3,7 @@ package com.teletorflix.app.service;
 import com.teletorflix.app.exceptions.*;
 import com.teletorflix.app.model.*;
 import com.teletorflix.app.repository.ShowRepository;
+import org.apache.logging.log4j.LogManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -266,6 +267,8 @@ class ShowServiceTest {
 
         Episode episode = showService.getEpisode(show.getId(), threeNumber, oneNumber);
 
+        LogManager.getLogger().info(episode);
+
         assertThat(episode).isEqualTo(one);
     }
 
@@ -304,6 +307,8 @@ class ShowServiceTest {
         when(showRepository.findById(anyInt())).thenReturn(Optional.of(show));
 
         Episode episode = showService.getLastEpisode(show.getId());
+
+        LogManager.getLogger().info(episode);
 
         assertThat(episode).isEqualTo(epThree);
     }

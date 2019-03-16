@@ -9,9 +9,6 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class AppApplication implements CommandLineRunner {
 
-//    @Autowired
-//    private ScheduleDayRepository scheduleDayRepository;
-
     public static void main(String[] args) {
         SpringApplication.run(AppApplication.class, args);
     }
@@ -23,7 +20,6 @@ public class AppApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        scheduleDayRepository.save(ScheduleDay.of("Thursday"));
     }
 }
 

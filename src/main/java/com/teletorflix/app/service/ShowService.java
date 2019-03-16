@@ -5,7 +5,7 @@ import com.teletorflix.app.model.Season;
 import com.teletorflix.app.model.Show;
 
 public interface ShowService {
-    Show getShowById(int id);
+    Show getShowById(int showId);
 
     Season getSeasonById(int showId, int seasonId);
 
